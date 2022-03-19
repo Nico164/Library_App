@@ -1,9 +1,26 @@
 import React from "react";
-import { TextInput, Text, StyleSheet, View, TouchableHighlight, } from "react-native";
+import { Button, TextInput, Text, StyleSheet, View, TouchableHighlight, } from "react-native";
 import { withSafeAreaInsets } from "react-native-safe-area-context";
+import axios from "axios";
 
 
-export const SignInScreen = () => {
+export const SignInScreen = ({navigation}) => {
+    function goToSignUp( ) {
+        navigation.push("SignUp")
+    }
+
+    async function fetchData() {
+        try {
+         const result = await axios.post("http://localhost:3000/auth/login", {
+             email: "Test@mail.com",
+             password: "12345"
+        })
+        console.warn(JSON.stringify(result))
+     }catch (error) {
+         console.warn(JSON.stringify(error))
+ 
+     }}
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -22,11 +39,12 @@ Education to future-proof your career.</Text>
                 placeholder="Password"
                 secureTextEntry= {true}
                  />
-                <TouchableHighlight onPress={()=> null}>
+                <TouchableHighlight onPress={fetchData}>
                     <View style={styles.button}>
                         <Text style={styles.textButton}>SignIn</Text>
                     </View>
                 </TouchableHighlight>
+                <Button title="Register" onPress={goToSignUp}/>
             </View>
         </View>
     )
