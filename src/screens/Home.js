@@ -7,6 +7,8 @@ import Card from "../components/cards"
 import Chips from "../components/chips"
 import Input from "../components/input"
 import Btn from "../components/btn"
+import Menu from "../components/menu"
+import Box from "../components/box/box"
 
 
 export const HomeScreen = ({ navigation }) => {
@@ -28,6 +30,7 @@ export const HomeScreen = ({ navigation }) => {
         }
     }
     return (
+        <Box>
         <Scroll horizontal={false}>
             <View style={styles.container}>
                 <View style={styles.greeting}>
@@ -100,6 +103,7 @@ export const HomeScreen = ({ navigation }) => {
 
             </View>
         </Scroll>
+        </Box>
     )
 }
 
