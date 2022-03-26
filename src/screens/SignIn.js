@@ -2,6 +2,9 @@ import React from "react";
 import { Button, TextInput, Text, StyleSheet, View, TouchableHighlight, } from "react-native";
 import { withSafeAreaInsets } from "react-native-safe-area-context";
 import axios from "axios";
+import Btn from "../components/btn";
+import Input from "../components/input";
+import Scroll from "../components/scroll";
 
 
 export const SignInScreen = ({navigation}) => {
@@ -22,6 +25,7 @@ export const SignInScreen = ({navigation}) => {
      }}
 
     return (
+        <Scroll horizontal={false}>
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headerText}>Sign In</Text>
@@ -29,24 +33,21 @@ export const SignInScreen = ({navigation}) => {
 Education to future-proof your career.</Text>
             </View>
             <View style={styles.body}>
-                <TextInput 
-                style={styles.input}
+                <Input 
                 placeholder="Email"
                 keyboardType="email-address"
                   />
-                <TextInput 
-                style={styles.input}
+                <Input
                 placeholder="Password"
                 secureTextEntry= {true}
                  />
-                <TouchableHighlight onPress={fetchData}>
-                    <View style={styles.button}>
-                        <Text style={styles.textButton}>SignIn</Text>
-                    </View>
-                </TouchableHighlight>
-                <Button title="Register" onPress={goToSignUp}/>
+                <Btn
+                onPress= {fetchData}
+                title= {"SignIn"}/>
+                <Btn title="Register" onPress={goToSignUp}/>
             </View>
         </View>
+        </Scroll>
     )
 }
 
@@ -83,29 +84,9 @@ const styles = StyleSheet.create({
 
     },
 
-    input: {
-        height: 40,
-        borderColor: "gray",
-        borderWidth: 1,
-        marginHorizontal: 20,
-        marginVertical: 10,
-        paddingHorizontal: 10,
-        borderRadius: 4,
-    },
+    
 
-    button: {
-        height: 40,
-        backgroundColor: "#017A9B",
-        marginHorizontal: 20,
-        marginVertical: 10,
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 4,
-    },
-
-    textButton: {
-        color: "white"
-    }
+    
 
 
 })

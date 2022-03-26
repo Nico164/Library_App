@@ -2,6 +2,12 @@ import { NavigationHelpersContext } from "@react-navigation/native"
 import React from "react"
 import { StyleSheet, Button, Text, View, TextInput, Image, } from "react-native"
 import axios from "axios"
+import Scroll from "../components/scroll"
+import Card from "../components/cards"
+import Chips from "../components/chips"
+import Input from "../components/input"
+import Btn from "../components/btn"
+
 
 export const HomeScreen = ({ navigation }) => {
     function goToSignIn() {
@@ -22,39 +28,78 @@ export const HomeScreen = ({ navigation }) => {
         }
     }
     return (
-        <View style={styles.container}>
-            <View style={styles.greeting}>
-                <Text style={styles.greetingText}>Hey, Nicolas 👋</Text>
-            </View>
-            <View style={styles.search}>
-                <TextInput
-                    style={styles.input}
-                    placeholder="what do you want to learn?"
-                />
-            </View>
-            <View style={styles.banners}>
-                <Image source={{ uri: "https://images.unsplash.com/photo-1647591609971-7ebb33c0f98a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2924&q=80" }} style={styles.imgBanner} />
-            </View>
-            <View style={styles.category}>
-                <View style={styles.categoryHeader}>
-                    <Text style={styles.categoryHeaderText}>Categories</Text>
-                    <Text style={styles.seeAll}>See All</Text>
+        <Scroll horizontal={false}>
+            <View style={styles.container}>
+                <View style={styles.greeting}>
+                    <Text style={styles.greetingText}>Hey, Nicolas 👋</Text>
                 </View>
-                <View style={styles.categoryBody}>
-                    <View style={styles.categoryItem}>
-                        <Image source={{uri : "https://img.icons8.com/material/344/pied-piper-season-3.png"}}
-                        style={styles.imgIcon}/>
-                        <Text style={styles.categoryItemText}>Design</Text>
+                <View style={styles.search}>
+                    <Input
+                        placeholder="what do you want to learn?"
+                    />
+                </View>
+                <View style={styles.banners}>
+                    <Image source={{ uri: "https://images.unsplash.com/photo-1647591609971-7ebb33c0f98a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2924&q=80" }} style={styles.imgBanner} />
+                </View>
+                <View style={styles.category}>
+                    <View style={styles.categoryHeader}>
+                        <Text style={styles.categoryHeaderText}>Categories</Text>
+                        <Text style={styles.seeAll}>See All</Text>
+                    </View>
+                    <View style={styles.categoryBody}>
+                        <Scroll horizontal>
+                            <Chips
+                                imageUrl={"https://img.icons8.com/material/344/pied-piper-season-3.png"}
+                                background={"green"}
+                                title={"design"}
+                            />
+                            <Chips
+                                imageUrl={"https://img.icons8.com/material/344/pied-piper-season-3.png"}
+                                background={"red"}
+                                title={"design"}
+                            />
+                            <Chips
+                                imageUrl={"https://img.icons8.com/material/344/pied-piper-season-3.png"}
+                                background={"yellow"}
+                                title={"design"}
+                            />
+                        </Scroll>
+                    </View>
 
+
+                </View>
+                <View style={styles.category}>
+                    <View style={styles.categoryHeader}>
+                        <Text style={styles.categoryHeaderText}>Featured</Text>
+                        <Text style={styles.seeAll}>See All</Text>
                     </View>
                 </View>
+                <Scroll horizontal>
+                    <Card
+                        title={"Data Engineer"}
+                        content={"collaboration with insight"}
+                        rating={"⭐️⭐️ 2.4 (1500)"}
+                        imageUrl={"https://images.unsplash.com/photo-1647591609971-7ebb33c0f98a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2924&q=80"}
+                    />
+                    <Card
+                        title={"Data Analyst"}
+                        content={"collaboration with Kaggle"}
+                        rating={"⭐️⭐️ 4.5 (2300)"}
+                        imageUrl={"https://images.unsplash.com/photo-1647591609971-7ebb33c0f98a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2924&q=80"}
+                    />
+                    <Card
+                        title={"Design"}
+                        content={"collaboration with people all around the world to make this work"}
+                        rating={"⭐️⭐️⭐️ 3.4 (1500)"}
+                        imageUrl={"https://images.unsplash.com/photo-1647591609971-7ebb33c0f98a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2924&q=80"}
+                    />
 
+                </Scroll>
+
+                <Btn title="Sign In" onPress={goToSignIn} />
 
             </View>
-
-            <Button title="Sign In" onPress={goToSignIn} />
-
-        </View>
+        </Scroll>
     )
 }
 
@@ -66,7 +111,7 @@ const styles = StyleSheet.create({
     },
 
     greeting: {
-        marginTop: 10,
+        marginTop: 40,
         paddingHorizontal: 20,
     },
 
@@ -75,16 +120,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
 
-    input: {
-        height: 40,
-        borderColor: "gray",
-        borderWidth: 1,
-        marginHorizontal: 20,
-        marginVertical: 10,
-        paddingHorizontal: 10,
-        borderRadius: 10,
-
-    },
 
     imgBanner: {
         width: "100%",
@@ -104,26 +139,6 @@ const styles = StyleSheet.create({
     categoryHeaderText: {
         fontSize: 24,
         fontWeight: "bold",
-    },
-
-    categoryItem: {
-        width: 200,
-        flexDirection: "row",
-        alignItems: "center",
-        margin: 2,
-        padding: 4,
-        backgroundColor: "pink",
-    },
-
-    imgIcon: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-    },
-
-    categoryItemText: {
-        fontSize: 18,
-        marginLeft: 10,
     },
 
 

@@ -1,10 +1,14 @@
 import React from "react";
 import { TextInput, Text, StyleSheet, View, TouchableHighlight, } from "react-native";
 import { withSafeAreaInsets } from "react-native-safe-area-context";
+import Btn from "../components/btn";
+import Input from "../components/input";
+import Scroll from "../components/scroll";
 
 
 export const SignUpScreen = () => {
     return (
+        <Scroll horizontal={false}>
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headerText}>Create Account</Text>
@@ -12,28 +16,25 @@ export const SignUpScreen = () => {
 Education to future-proof your career.</Text>
             </View>
             <View style={styles.body}>
-                <TextInput 
-                style={styles.input} 
+                <Input 
                 placeholder="Full Name" 
                 keyboardType="default"
                 />
-                <TextInput 
-                style={styles.input}
+                <Input 
                 placeholder="Email"
                 keyboardType="email-address"
                   />
-                <TextInput 
-                style={styles.input}
+                <Input 
                 placeholder="Password"
                 secureTextEntry= {true}
                  />
-                <TouchableHighlight onPress={()=> null}>
-                    <View style={styles.button}>
-                        <Text style={styles.textButton}>SignUp</Text>
-                    </View>
-                </TouchableHighlight>
+                <Btn 
+                onPress={()=> null}
+                title={"Sign Up"}/>
+
             </View>
         </View>
+        </Scroll>
     )
 }
 
@@ -70,29 +71,7 @@ const styles = StyleSheet.create({
 
     },
 
-    input: {
-        height: 40,
-        borderColor: "gray",
-        borderWidth: 1,
-        marginHorizontal: 20,
-        marginVertical: 10,
-        paddingHorizontal: 10,
-        borderRadius: 4,
-    },
 
-    button: {
-        height: 40,
-        backgroundColor: "#017A9B",
-        marginHorizontal: 20,
-        marginVertical: 10,
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 4,
-    },
-
-    textButton: {
-        color: "white"
-    }
 
 
 })
