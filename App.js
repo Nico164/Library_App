@@ -1,21 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import { AboutScreen } from './src/screens/about';
-import { SignUpScreen } from './src/screens/SignUp';
-import { SignInScreen } from './src/screens/SignIn';
+import { NavigationContainer } from "@react-navigation/native";
+import { usePreventScreenCapture } from "expo-screen-capture";
+import React from "react";
+import { AppContextProvider } from "./src/data/App.context";
+import MyStack from "./src/routes/StackRoutes";
 
 export default function App() {
+  usePreventScreenCapture();
   return (
-    <SafeAreaView style={styles.container}>
-      <SignInScreen />
-      <StatusBar style="auto" />
-    </SafeAreaView>
+    <AppContextProvider>
+      <NavigationContainer>
+        <MyStack />
+      </NavigationContainer>
+    </AppContextProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
