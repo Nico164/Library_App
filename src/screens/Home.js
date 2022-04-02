@@ -1,182 +1,229 @@
-import { NavigationHelpersContext } from "@react-navigation/native"
-import React from "react"
-import { StyleSheet, Button, Text, View, TextInput, Image, } from "react-native"
-import axios from "axios"
-import Scroll from "../components/scroll"
-import Card from "../components/cards"
-import Chips from "../components/chips"
-import Input from "../components/input"
-import Btn from "../components/btn"
-import Menu from "../components/menu"
-import Box from "../components/box/box"
-
+import React from "react";
+import { StyleSheet, Text, View, TextInput, Image, SafeAreaView } from "react-native";
+import Btn from "../components/Btn";
+import ContactsData from "../components/Contacts";
+import { P } from "../components/P";
+import Scroll from "../components/Scroll";
+import { auth, firestore } from "../firebase";
 
 export const HomeScreen = ({ navigation }) => {
-    function goToSignIn() {
-        navigation.push("SignIn")
-    }
+  function goToSignIn() {
+    navigation.push("Signin");
+  }
 
-    async function fetchData() {
-        try {
-            const result = await axios.post("https://shielded-basin-25655.herokuapp.com/api/members/signin", {
-                grant_type: "password",
-                username: "admin@asrul.dev",
-                password: "rahasia"
-            })
-            console.warn(JSON.stringify(result))
-        } catch (error) {
-            console.warn(error)
+  function handleSignOut() {
+    auth
+      .signOut()
+      .then(() => {
+        navigation.replace("Signin");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
-        }
-    }
-    return (
-        <Box>
-        <Scroll horizontal={false}>
-            <View style={styles.container}>
-                <View style={styles.greeting}>
-                    <Text style={styles.greetingText}>Hey, Nicolas 👋</Text>
-                </View>
-                <View style={styles.search}>
-                    <Input
-                        placeholder="what do you want to learn?"
-                    />
-                </View>
-                <View style={styles.banners}>
-                    <Image source={{ uri: "https://images.unsplash.com/photo-1647591609971-7ebb33c0f98a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2924&q=80" }} style={styles.imgBanner} />
-                </View>
-                <View style={styles.category}>
-                    <View style={styles.categoryHeader}>
-                        <Text style={styles.categoryHeaderText}>Categories</Text>
-                        <Text style={styles.seeAll}>See All</Text>
-                    </View>
-                    <View style={styles.categoryBody}>
-                        <Scroll horizontal>
-                            <Chips
-                                imageUrl={"https://img.icons8.com/material/344/pied-piper-season-3.png"}
-                                background={"green"}
-                                title={"design"}
-                            />
-                            <Chips
-                                imageUrl={"https://img.icons8.com/material/344/pied-piper-season-3.png"}
-                                background={"red"}
-                                title={"design"}
-                            />
-                            <Chips
-                                imageUrl={"https://img.icons8.com/material/344/pied-piper-season-3.png"}
-                                background={"yellow"}
-                                title={"design"}
-                            />
-                        </Scroll>
-                    </View>
+  return (
+    <SafeAreaView>
+    <Scroll style={{ paddingHorizontal: 0 }}>
+      {/* <ContactsData /> */}
+      <View style={styles.container}>
+        <View style={styles.greeting}>
+          <P fontSize={32} fontType={"Bold"}>
+            Hey 👋🏻
+          </P>
+          <P fontSize={16} fontType={"Regular"}>
+            {auth?.currentUser?.email}
+          </P>
+        </View>
+        <View style={styles.search}>
+          <TextInput
+            style={styles.input}
+            placeholder="What do you want to learn?"
+          />
+        </View>
+        <View style={styles.banner}>
+          <Image
+            source={{ uri: "https://picsum.photos/200/300" }}
+            style={styles.imgBanner}
+          />
+        </View>
 
+        <View styles={styles.category}>
+          <View style={styles.categoryHeader}>
+            <Text style={styles.categoryHeaderText}>Categories</Text>
+            <Text style={styles.seeAll}>See All</Text>
+          </View>
+          <View style={styles.categoryBody}>
+            <Scroll horizontal>
+              <View style={styles.categoryItem}>
+                <Image
+                  source={{
+                    uri: "https://www.unukaltim.ac.id/wp-content/uploads/2019/12/graduate-icon-png-28-2.png",
+                  }}
+                  style={styles.imgIcon}
+                />
+                <Text ellipsizeMode="clip" style={styles.categoryItemText}>
+                  Education
+                </Text>
+              </View>
 
-                </View>
-                <View style={styles.category}>
-                    <View style={styles.categoryHeader}>
-                        <Text style={styles.categoryHeaderText}>Featured</Text>
-                        <Text style={styles.seeAll}>See All</Text>
-                    </View>
-                </View>
-                <Scroll horizontal>
-                    <Card
-                        title={"Data Engineer"}
-                        content={"collaboration with insight"}
-                        rating={"⭐️⭐️ 2.4 (1500)"}
-                        imageUrl={"https://images.unsplash.com/photo-1647591609971-7ebb33c0f98a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2924&q=80"}
-                    />
-                    <Card
-                        title={"Data Analyst"}
-                        content={"collaboration with Kaggle"}
-                        rating={"⭐️⭐️ 4.5 (2300)"}
-                        imageUrl={"https://images.unsplash.com/photo-1647591609971-7ebb33c0f98a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2924&q=80"}
-                    />
-                    <Card
-                        title={"Design"}
-                        content={"collaboration with people all around the world to make this work"}
-                        rating={"⭐️⭐️⭐️ 3.4 (1500)"}
-                        imageUrl={"https://images.unsplash.com/photo-1647591609971-7ebb33c0f98a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2924&q=80"}
-                    />
+              <View style={styles.categoryItem}>
+                <Image
+                  source={{
+                    uri: "https://www.unukaltim.ac.id/wp-content/uploads/2019/12/graduate-icon-png-28-2.png",
+                  }}
+                  style={styles.imgIcon}
+                />
+                <Text ellipsizeMode="clip" style={styles.categoryItemText}>
+                  Education
+                </Text>
+              </View>
+              <View style={styles.categoryItem}>
+                <Image
+                  source={{
+                    uri: "https://www.unukaltim.ac.id/wp-content/uploads/2019/12/graduate-icon-png-28-2.png",
+                  }}
+                  style={styles.imgIcon}
+                />
+                <Text ellipsizeMode="clip" style={styles.categoryItemText}>
+                  Education
+                </Text>
+              </View>
+              <View style={styles.categoryItem}>
+                <Image
+                  source={{
+                    uri: "https://www.unukaltim.ac.id/wp-content/uploads/2019/12/graduate-icon-png-28-2.png",
+                  }}
+                  style={styles.imgIcon}
+                />
+                <Text ellipsizeMode="clip" style={styles.categoryItemText}>
+                  Education
+                </Text>
+              </View>
+            </Scroll>
+          </View>
+        </View>
 
-                </Scroll>
+        <View style={styles.categoryHeader}>
+          <Text style={styles.categoryHeaderText}>Featured</Text>
+          <Text style={styles.seeAll}>See All</Text>
+        </View>
 
-                <Btn title="Sign In" onPress={goToSignIn} />
-
-            </View>
+        <Scroll horizontal>
+          <View style={styles.card}>
+            <Image
+              source={{
+                uri: "https://www.unukaltim.ac.id/wp-content/uploads/2019/12/graduate-icon-png-28-2.png",
+              }}
+              style={styles.imgCard}
+            />
+            <Text style={styles.cardTitle}>
+              Education
+            </Text>
+          </View>
         </Scroll>
-        </Box>
-    )
-}
+
+        {auth?.currentUser?.email ? (
+          <Btn onPress={handleSignOut}>Sign Out</Btn>
+        ) : (
+          <Btn onPress={goToSignIn}>Sign In</Btn>
+        )}
+      </View>
+    </Scroll>
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: "white",
-        flex: 1,
-        paddingHorizontal: 0,
-    },
+  container: {
+    backgroundColor: "#fff",
+    flex: 1,
+    paddingHorizontal: 0,
+  },
 
-    greeting: {
-        marginTop: 40,
-        paddingHorizontal: 20,
-    },
+  greeting: {
+    marginTop: 40,
+    paddingHorizontal: 20,
+  },
 
-    greetingText: {
-        fontSize: 32,
-        fontWeight: "bold",
-    },
+  greetingText: {
+    fontSize: 32,
+    fontWeight: "bold",
+  },
 
+  input: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    marginHorizontal: 20,
+    marginVertical: 10,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+  },
 
-    imgBanner: {
-        width: "100%",
-        height: 200,
-        marginVertical: 8,
+  imgBanner: {
+    width: "100%",
+    height: 200,
+    marginVertical: 8,
+  },
 
-    },
+  categoryHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginHorizontal: 20,
+    marginVertical: 10,
+    alignItems: "center",
+  },
 
-    categoryHeader: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        marginHorizontal: 20,
-        marginVertical: 10,
-        alignItems: "center",
-    },
+  categoryHeaderText: {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
 
-    categoryHeaderText: {
-        fontSize: 24,
-        fontWeight: "bold",
-    },
+  categoryItem: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    margin: 2,
+    padding: 4,
+    backgroundColor: "#fff333",
+    borderRadius: 30,
+    width: 120,
+  },
 
+  imgIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+  },
 
-    header: {
-        height: 60,
-        backgroundColor: "blue",
-        justifyContent: "center",
-        alignItems: "center",
-    },
+  categoryItemText: {
+    fontSize: 18,
+    marginLeft: 10,
+    maxWidth: 100,
+  },
 
-    headerText: {
-        fontSize: 24,
-        fontWeight: "bold",
-        color: "white",
-        textAlign: "center",
-    },
+  card: {
+    width: 238,
+    height: 235,
+    marginHorizontal: 6,
+    padding: 12,
+    borderRadius: 16,
+    backgroundColor: "#fff",
+    borderWidth: 1,
+    borderColor: "#ddd",
+  },
 
-    body: {
-        flex: 9,
-        flexDirection: "row",
-        backgroundColor: "green",
-    },
+  imgCard: {
+    width: "100%",
+    height: 150,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#ddd",
+  },
 
-    left: {
-        flex: 9,
-        backgroundColor: "red",
-    },
-
-    right: {
-        flex: 9,
-        backgroundColor: "yellow",
-    },
-
-
-
-
-})
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+  }
+});

@@ -1,19 +1,16 @@
-import {NavigationContainer} from "@react-navigation/native"
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import MyStack from './src/routes/StackRoutes';
+import { NavigationContainer } from "@react-navigation/native";
+import { usePreventScreenCapture } from "expo-screen-capture";
+import React from "react";
+import { AppContextProvider } from "./src/data/App.context";
+import MyStack from "./src/routes/StackRoutes";
 
 export default function App() {
+  usePreventScreenCapture();
   return (
-    <NavigationContainer>
-      <MyStack />
-    </NavigationContainer>
+    <AppContextProvider>
+      <NavigationContainer>
+        <MyStack />
+      </NavigationContainer>
+    </AppContextProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

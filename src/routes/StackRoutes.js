@@ -6,16 +6,24 @@ import { SignUpScreen } from "../screens/SignUp";
 
 const Stack = createStackNavigator();
 const MyStack = () => {
-    return (
-        <Stack.Navigator>
-            <Stack.Screen name="Home" component={HomeScreen} options={
-             {
-                 headerShown : false,
-             }   
-            }/>
-            <Stack.Screen name="SignIn" component={SignInScreen}/>
-            <Stack.Screen name="SignUp" component={SignUpScreen}/>
-        </Stack.Navigator>
-    )
-}
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={HomeScreen} options={
+        {
+          headerShown: false,
+        }
+      } />
+      <Stack.Screen name="Signin" component={SignInScreen} options={
+        {
+          headerShown: false,
+        }
+      }  />
+      <Stack.Screen name="Signup" component={SignUpScreen} options={
+        {
+          headerShown: false,
+        }
+      }/>
+    </Stack.Navigator>
+  );
+};
 export default MyStack;

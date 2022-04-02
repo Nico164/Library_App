@@ -1,77 +1,101 @@
 import React from "react";
-import { TextInput, Text, StyleSheet, View, TouchableHighlight, } from "react-native";
-import { withSafeAreaInsets } from "react-native-safe-area-context";
-import Btn from "../components/btn";
-import Input from "../components/input";
-import Scroll from "../components/scroll";
+import {
+  TextInput,
+  Text,
+  StyleSheet,
+  View,
+  TouchableHighlight,
+} from "react-native";
+import { auth, provider } from "../firebase";
 
+export const SignUpScreen = ({navigation}) => {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [error, setError] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
 
-export const SignUpScreen = () => {
-    return (
-        <Scroll horizontal={false}>
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.headerText}>Create Account</Text>
-                <Text style={styles.headerTextDescription}>Build skills for today, tomorrow, and beyond.
-Education to future-proof your career.</Text>
-            </View>
-            <View style={styles.body}>
-                <Input 
-                placeholder="Full Name" 
-                keyboardType="default"
-                />
-                <Input 
-                placeholder="Email"
-                keyboardType="email-address"
-                  />
-                <Input 
-                placeholder="Password"
-                secureTextEntry= {true}
-                 />
-                <Btn 
-                onPress={()=> null}
-                title={"Sign Up"}/>
+  function handleSignUp() {
+    if (email.length === 0 || password.length === 0) {
+      setError("Please enter an email and password");
+      return;
+    } else {
+      auth
+        .createUserWithEmailAndPassword(email, password)
+        .then((userCredentials) => {
+          const user = userCredentials.user;
+          if (user) {
+            // setLoading(false);
+            // setError("");
+            setEmail("");
+            setPassword("");
+          }
+          console.warn(JSON.stringify(userCredentials));
+        })
+        .catch((error) => {
+          console.warn(JSON.stringify(error));
+          // setLoading(false);
+          // setError(error.message);
+        });
+    }
+  }
 
-            </View>
-        </View>
-        </Scroll>
-    )
-}
+  function handleSignUpGmail() {
+    auth
+      .signInWithPopup(provider)
+      .then((userCredentials) => {
+        const user = userCredentials.user;
+        if (user) {
+          console.log(user);
+          setLoading(false);
+          setError("");
+          setEmail("");
+          setPassword("");
+        }
+        console.warn(JSON.stringify(userCredentials));
+      })
+      .catch((error) => {
+        console.warn(JSON.stringify(error));
+        setLoading(false);
+        setError(error.message);
+      });
+  }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
+  function handleSignIn() {
+    navigation.replace("Signin");
+  }
 
-    header: {
-        marginTop: 90,
-        paddingHorizontal: 20,
-        justifyContent: "center",
-        alignItems: "center",
-        marginBottom: 36,
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Create Account</Text>
+        <Text style={styles.headerTextDescription}>
+          Build skills for today, tomorrow, and beyond. Education to
+          future-proof your career.
+        </Text>
+      </View>
+      <View style={styles.body}>
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          keyboardType="email-address"
+          onChangeText={(text) => setEmail(text)}
+          value={email}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          secureTextEntry={true}
+          onChangeText={(text) => setPassword(text)}
+          value={password}
+        />
+        <TouchableHighlight onPress={handleSignUp} style={styles.button}>
+          <Text style={styles.textButton}>Sign Up</Text>
+        </TouchableHighlight>
 
-    },
-
-    headerText: {
-        fontSize: 24,
-        fontWeight: "bold",
-        marginBottom: 18, 
-
-    },
-
-    headerTextDescription: {
-        fontSize: 16,
-        color: "gray",
-        textAlign: "center",
-    },
-
-    body: {
-        flex: 1,
-
-
-    },
-
-
-
-
-})
+        <TouchableHighlight onPress={handleSignIn} style={styles.buttonLogin}>
+          <Text style={styles.textButtonBack}>Sign in</Text>
+        </TouchableHighlight>
+      </View>
+    </View>
+  );
+};
