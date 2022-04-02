@@ -7,7 +7,7 @@ const Box = (props) => {
     return (
         <View style={styles.container}>
             {children}
-            <Menu/>
+            <Menu isLogin={props.isLogin} />
         </View>
     )
 }
@@ -16,8 +16,6 @@ const styles = StyleSheet.create ({
     container: {
         display: "flex",
         flex: 1,
-
-
     },
 })
 

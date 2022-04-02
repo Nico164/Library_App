@@ -1,5 +1,13 @@
 import React from "react";
-import { StyleSheet, Text, View, TextInput, Image, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Image,
+  SafeAreaView,
+} from "react-native";
+import Box from "../components/box/box";
 import Btn from "../components/Btn";
 import ContactsData from "../components/Contacts";
 import { P } from "../components/P";
@@ -11,126 +19,111 @@ export const HomeScreen = ({ navigation }) => {
     navigation.push("Signin");
   }
 
-  function handleSignOut() {
-    auth
-      .signOut()
-      .then(() => {
-        navigation.replace("Signin");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
   return (
-    <SafeAreaView>
-    <Scroll style={{ paddingHorizontal: 0 }}>
-      {/* <ContactsData /> */}
-      <View style={styles.container}>
-        <View style={styles.greeting}>
-          <P fontSize={32} fontType={"Bold"}>
-            Hey 👋🏻
-          </P>
-          <P fontSize={16} fontType={"Regular"}>
-            {auth?.currentUser?.email}
-          </P>
-        </View>
-        <View style={styles.search}>
-          <TextInput
-            style={styles.input}
-            placeholder="What do you want to learn?"
-          />
-        </View>
-        <View style={styles.banner}>
-          <Image
-            source={{ uri: "https://picsum.photos/200/300" }}
-            style={styles.imgBanner}
-          />
-        </View>
+    // <SafeAreaView>
+      <Box isLogin={auth?.currentUser?.email}>
+        <Scroll style={{ paddingHorizontal: 0 }}>
+          {/* <ContactsData /> */}
+          <View style={styles.container}>
+            <View style={styles.greeting}>
+              <P fontSize={32} fontType={"Bold"}>
+                Hey 👋🏻
+              </P>
+              <P fontSize={16} fontType={"Regular"}>
+                {auth?.currentUser?.email}
+              </P>
+            </View>
+            <View style={styles.search}>
+              <TextInput
+                style={styles.input}
+                placeholder="What do you want to learn?"
+              />
+            </View>
+            <View style={styles.banner}>
+              <Image
+                source={{ uri: "https://picsum.photos/200/300" }}
+                style={styles.imgBanner}
+              />
+            </View>
 
-        <View styles={styles.category}>
-          <View style={styles.categoryHeader}>
-            <Text style={styles.categoryHeaderText}>Categories</Text>
-            <Text style={styles.seeAll}>See All</Text>
-          </View>
-          <View style={styles.categoryBody}>
+            <View styles={styles.category}>
+              <View style={styles.categoryHeader}>
+                <Text style={styles.categoryHeaderText}>Categories</Text>
+                <Text style={styles.seeAll}>See All</Text>
+              </View>
+              <View style={styles.categoryBody}>
+                <Scroll horizontal>
+                  <View style={styles.categoryItem}>
+                    <Image
+                      source={{
+                        uri: "https://www.unukaltim.ac.id/wp-content/uploads/2019/12/graduate-icon-png-28-2.png",
+                      }}
+                      style={styles.imgIcon}
+                    />
+                    <Text ellipsizeMode="clip" style={styles.categoryItemText}>
+                      Education
+                    </Text>
+                  </View>
+
+                  <View style={styles.categoryItem}>
+                    <Image
+                      source={{
+                        uri: "https://www.unukaltim.ac.id/wp-content/uploads/2019/12/graduate-icon-png-28-2.png",
+                      }}
+                      style={styles.imgIcon}
+                    />
+                    <Text ellipsizeMode="clip" style={styles.categoryItemText}>
+                      Education
+                    </Text>
+                  </View>
+                  <View style={styles.categoryItem}>
+                    <Image
+                      source={{
+                        uri: "https://www.unukaltim.ac.id/wp-content/uploads/2019/12/graduate-icon-png-28-2.png",
+                      }}
+                      style={styles.imgIcon}
+                    />
+                    <Text ellipsizeMode="clip" style={styles.categoryItemText}>
+                      Education
+                    </Text>
+                  </View>
+                  <View style={styles.categoryItem}>
+                    <Image
+                      source={{
+                        uri: "https://www.unukaltim.ac.id/wp-content/uploads/2019/12/graduate-icon-png-28-2.png",
+                      }}
+                      style={styles.imgIcon}
+                    />
+                    <Text ellipsizeMode="clip" style={styles.categoryItemText}>
+                      Education
+                    </Text>
+                  </View>
+                </Scroll>
+              </View>
+            </View>
+
+            <View style={styles.categoryHeader}>
+              <Text style={styles.categoryHeaderText}>Featured</Text>
+              <Text style={styles.seeAll}>See All</Text>
+            </View>
+
             <Scroll horizontal>
-              <View style={styles.categoryItem}>
+              <View style={styles.card}>
                 <Image
                   source={{
                     uri: "https://www.unukaltim.ac.id/wp-content/uploads/2019/12/graduate-icon-png-28-2.png",
                   }}
-                  style={styles.imgIcon}
+                  style={styles.imgCard}
                 />
-                <Text ellipsizeMode="clip" style={styles.categoryItemText}>
-                  Education
-                </Text>
-              </View>
-
-              <View style={styles.categoryItem}>
-                <Image
-                  source={{
-                    uri: "https://www.unukaltim.ac.id/wp-content/uploads/2019/12/graduate-icon-png-28-2.png",
-                  }}
-                  style={styles.imgIcon}
-                />
-                <Text ellipsizeMode="clip" style={styles.categoryItemText}>
-                  Education
-                </Text>
-              </View>
-              <View style={styles.categoryItem}>
-                <Image
-                  source={{
-                    uri: "https://www.unukaltim.ac.id/wp-content/uploads/2019/12/graduate-icon-png-28-2.png",
-                  }}
-                  style={styles.imgIcon}
-                />
-                <Text ellipsizeMode="clip" style={styles.categoryItemText}>
-                  Education
-                </Text>
-              </View>
-              <View style={styles.categoryItem}>
-                <Image
-                  source={{
-                    uri: "https://www.unukaltim.ac.id/wp-content/uploads/2019/12/graduate-icon-png-28-2.png",
-                  }}
-                  style={styles.imgIcon}
-                />
-                <Text ellipsizeMode="clip" style={styles.categoryItemText}>
-                  Education
-                </Text>
+                <Text style={styles.cardTitle}>Education</Text>
               </View>
             </Scroll>
-          </View>
-        </View>
 
-        <View style={styles.categoryHeader}>
-          <Text style={styles.categoryHeaderText}>Featured</Text>
-          <Text style={styles.seeAll}>See All</Text>
-        </View>
-
-        <Scroll horizontal>
-          <View style={styles.card}>
-            <Image
-              source={{
-                uri: "https://www.unukaltim.ac.id/wp-content/uploads/2019/12/graduate-icon-png-28-2.png",
-              }}
-              style={styles.imgCard}
-            />
-            <Text style={styles.cardTitle}>
-              Education
-            </Text>
+            {auth?.currentUser?.email && <Btn onPress={goToSignIn}>Sign In</Btn>}
           </View>
         </Scroll>
-
-        {auth?.currentUser?.email ? (
-          <Btn onPress={handleSignOut}>Sign Out</Btn>
-        ) : (
-          <Btn onPress={goToSignIn}>Sign In</Btn>
-        )}
-      </View>
-    </Scroll>
-    </SafeAreaView>
+      </Box>
+    // </SafeAreaView>
   );
 };
 
@@ -225,5 +218,5 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 18,
     fontWeight: "bold",
-  }
+  },
 });
