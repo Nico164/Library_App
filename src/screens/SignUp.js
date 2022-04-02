@@ -99,3 +99,72 @@ export const SignUpScreen = ({navigation}) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+
+  header: {
+    marginTop: 90,
+    paddingHorizontal: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 36,
+  },
+
+  headerText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 18,
+  },
+
+  headerTextDescription: {
+    fontSize: 16,
+    color: "gray",
+    textAlign: "center",
+  },
+
+  body: {
+    flex: 1,
+  },
+
+  input: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    marginHorizontal: 20,
+    marginVertical: 10,
+    paddingHorizontal: 10,
+    borderRadius: 4,
+  },
+
+  button: {
+    height: 40,
+    backgroundColor: "#017A9B",
+    marginHorizontal: 20,
+    marginVertical: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 4,
+  },
+
+  buttonLogin: {
+    height: 40,
+    backgroundColor: "#fff",
+    marginHorizontal: 20,
+    marginVertical: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 4,
+  },
+
+  textButton: {
+    color: "white",
+  },
+
+  textButtonBack: {
+    color: "#017A9B",
+  },
+});
+

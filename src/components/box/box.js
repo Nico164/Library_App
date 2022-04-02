@@ -7,7 +7,7 @@ const Box = (props) => {
     return (
         <View style={styles.container}>
             {children}
-            <Menu/>
+            <Menu isLogin={props.isLßogin}/>
         </View>
     )
 }

@@ -5,25 +5,17 @@ import ContactsData from "../components/Contacts";
 import { P } from "../components/P";
 import Scroll from "../components/Scroll";
 import { auth, firestore } from "../firebase";
+import Box from "../components/box/box"
 
 export const HomeScreen = ({ navigation }) => {
   function goToSignIn() {
     navigation.push("Signin");
   }
 
-  function handleSignOut() {
-    auth
-      .signOut()
-      .then(() => {
-        navigation.replace("Signin");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+  
 
   return (
-    <SafeAreaView>
+    <Box isLogin={auth?.currentUser?.email}>
     <Scroll style={{ paddingHorizontal: 0 }}>
       {/* <ContactsData /> */}
       <View style={styles.container}>
@@ -123,14 +115,10 @@ export const HomeScreen = ({ navigation }) => {
           </View>
         </Scroll>
 
-        {auth?.currentUser?.email ? (
-          <Btn onPress={handleSignOut}>Sign Out</Btn>
-        ) : (
-          <Btn onPress={goToSignIn}>Sign In</Btn>
-        )}
+        {auth?.currentUser?.email  &&  <Btn onPress={goToSignIn}>Sign In</Btn>}
       </View>
     </Scroll>
-    </SafeAreaView>
+    </Box>
   );
 };
 

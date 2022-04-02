@@ -46,7 +46,6 @@ export const SignInScreen = ({ navigation }) => {
           setEmail("");
           setPassword("");
         }
-        console.warn(JSON.stringify(userCredentials));
       })
       .catch((error) => {
         console.warn(JSON.stringify(error));
